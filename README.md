@@ -6,5 +6,5 @@ We try to contribute back to the alpine linux project, but we probably
 always need some functionality that can't make it into the official tree.
 Anyhow, we really try to keep our extras as small and limited as possible.
 
-We use https://github.com/rgerhards/docker-alpine-abuild/tree/master-rger
+We use https://github.com/rgerhards/docker-alpine-abuild/tree/master-rsyslog
 to build the packages.
