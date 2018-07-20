@@ -9,6 +9,7 @@ if [ "$RSA_PRIVATE_KEY" == "" ]; then
 fi
 echo PWD: $PWD
 echo HOME: $HOME
+docker pull rsyslog/docker-alpine-abuild:3.7 # be on the save side...
 docker run \
 	-e OWNER=`id -u` \
 	-e OWNER_GRP=`id -g` \
