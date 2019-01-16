@@ -15,13 +15,12 @@ options="!check"
 makedepends="zlib-dev gnutls-dev mariadb-dev postgresql-dev net-snmp-dev
 	libnet-dev libgcrypt-dev libestr-dev liblogging-dev
 	libfastjson-dev util-linux-dev py-docutils hiredis-dev linux-headers
-	curl-dev librelp-dev czmq-dev librdkafka-dev"
+	curl-dev librelp-dev czmq-dev librdkafka-dev bsd-compat-headers"
 subpackages="$pkgname-doc $pkgname-mysql $pkgname-pgsql $pkgname-tls
 	$pkgname-snmp $pkgname-hiredis $pkgname-dbg $pkgname-elasticsearch
 	$pkgname-mmutf8fix $pkgname-imptcp $pkgname-mmjsonparse $pkgname-omstdout
 	$pkgname-imrelp $pkgname-omrelp $pkgname-omczmq $pkgname-imczmq
-	$pkgname-mmanon $pkgname-omhttpfs "
-#	$pkgname-mmanon $pkgname-omhttpfs $pkgname-omkafka $pkgname-imkafka"
+	$pkgname-mmanon $pkgname-omhttpfs $pkgname-omkafka $pkgname-imkafka"
 source="http://www.rsyslog.com/files/download/$pkgname/$pkgname-$pkgver.tar.gz
 	$pkgname.initd
 	$pkgname.confd
@@ -62,8 +61,8 @@ build() {
 		--enable-relp \
 		--enable-omczmq \
 		--enable-imczmq \
-		--enable-omkafka=no \
-		--enable-imkafka=no \
+		--enable-omkafka \
+		--enable-imkafka \
 		--enable-omhttpfs \
 		--prefix=/usr \
 		--sysconfdir=/etc \
@@ -98,21 +97,21 @@ mmanon() {
 		"$subpkgdir"/usr/lib/rsyslog/
 }
 
-#imkafka() {
-#	pkgdesc="rsyslog imkafka module"
-#
-#	mkdir -p "$subpkgdir"/usr/lib/rsyslog/
-#	mv "$pkgdir"/usr/lib/rsyslog/imkafka.so \
-#		"$subpkgdir"/usr/lib/rsyslog/
-#}
+imkafka() {
+	pkgdesc="rsyslog imkafka module"
 
-#omkafka() {
-#	pkgdesc="rsyslog omkafka module"
-#
-#	mkdir -p "$subpkgdir"/usr/lib/rsyslog/
-#	mv "$pkgdir"/usr/lib/rsyslog/omkafka.so \
-#		"$subpkgdir"/usr/lib/rsyslog/
-#}
+	mkdir -p "$subpkgdir"/usr/lib/rsyslog/
+	mv "$pkgdir"/usr/lib/rsyslog/imkafka.so \
+		"$subpkgdir"/usr/lib/rsyslog/
+}
+
+omkafka() {
+	pkgdesc="rsyslog omkafka module"
+
+	mkdir -p "$subpkgdir"/usr/lib/rsyslog/
+	mv "$pkgdir"/usr/lib/rsyslog/omkafka.so \
+		"$subpkgdir"/usr/lib/rsyslog/
+}
 
 imczmq() {
 	pkgdesc="rsyslog imczmq module"
